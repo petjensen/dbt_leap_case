@@ -23,7 +23,7 @@ calculations as (
 performance_metrics as (
     select 
         *,
-        ((close_price_dkk - prev_day_price_dkk) / nullif(prev_day_price_dkk, 0))
+        ((close_price_dkk - prev_day_price_dkk) / nullif(prev_day_price_dkk, 0)) * 100 as daily_return_pct
     from calculations
 )
 select * from performance_metrics

@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fct_daily_market_performance
+    columns:
+      - name: stock_price_id
+        tests:
+          - unique
+          - not_null
+      - name: daily_return_pct
+        tests:
+          - not_null:
+              config:
+                where: "trading_date > (select min(trading_date) from {{ this }})"
+
+  - name: dim_ticker_summary
+    columns:
+      - name: ticker_symbol
+        tests:
+          - unique
+          - not_null
+      - name: all_time_high_dkk
+        description: "Validerer at prisen aldrig er negativ"
+        tests:
+          - dbt_expectations.expect_column_values_to_be_at_least:
+              value: 0
