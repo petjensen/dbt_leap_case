@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: public_data
+    database: snowflake_public_data_free
+    schema: public_data_free
+    tables:
+      - name: stock_price_timeseries
+        description: "Renset aktiekursdata"
+        columns:
+          - name: stock_id
+            tests:
+              - unique
+              - not_null
+          - name: price_usd
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 0 
+      - name: company_index
+        description: "Renset oplysninger om aktier og virksomheder"
+        columns:
+          - name: company_name
+            tests:
+              - unique
+              - not_null
+      - name: fx_rates_timeseries
+        description: "Historiske FX rater"
+        columns:
+          - name: fx_rate_id
+            tests:
+              - unique
+              - not_null
+          - name: rate_to_usd
+            description: "The exchange rate to convert 1 unit of forign currency to USD"
