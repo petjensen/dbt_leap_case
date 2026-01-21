@@ -11,6 +11,7 @@ renamed_cleaned_fx as (
         "VALUE"::FLOAT as rate_to_usd
     from raw_fx_rates
     where BASE_CURRENCY_ID = 'USD'
+        and QUOTE_CURRENCY_ID = 'DKK'
         and value > 0 
     order by date desc 
 )

@@ -8,7 +8,7 @@ renamed as (
         ticker as ticker_symbol,
         PRIMARY_EXCHANGE_CODE as stock_exchange_symbol,
         date::DATE as trading_date,
-        value as closing_price
+        value as closing_price_usd
     from raw_prices
     where variable = 'post-market_close_adjusted'
 )

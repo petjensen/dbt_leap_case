@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: int_daily_stock_prices
+    description: "Model der kombinerer aktiepriser med valutakurser for at beregne DKK-værdier."
+    columns:
+      - name: stock_price_id
+        tests:
+          - unique
+          - not_null
+
+  - name: int_company_performance_enriched
+    description: "Model der beregner dagligt afkast og rullende gennemsnit."
+    columns:
+      - name: daily_return_pct
+        tests:
+          - not_null:
+              config:
+                where: "trading_date > (select min(trading_date) from {{ this }})"
