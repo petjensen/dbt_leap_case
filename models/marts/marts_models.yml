@@ -8,6 +8,7 @@ models:
           - unique
           - not_null
       - name: daily_return_pct
+        description: "Calculate the daily return of ticker"
         tests:
           - not_null:
               config:
