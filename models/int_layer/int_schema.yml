@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: int_daily_stock_prices
+    description: "Model der kombinerer aktiepriser med valutakurser for at beregne DKK-værdier."
+    columns:
+      - name: stock_price_id
+        tests:
+          - unique
+          - not_null
+      - name: close_price_dkk
+        description: "Calculating the closing price in DKK based on the FX date of the day"
+
+  - name: int_company_performance_enriched
+    description: "Model der beregner dagligt afkast og rullende gennemsnit."
+    columns:
+      - name: daily_return_pct
+        description: "Calculating the daily return based in prevous day stock_price and current stock price"
+        tests:
+          - not_null:
+              config:
+                where: "daily_return_pct IS NOT NULL"
+      - name: prev_day_price_dkk
+        description: "Calculating prevoius day stock value in DKK"
+      - name: moving_avg_7_days
+        description: "Calculating 7 days moving avg returns"

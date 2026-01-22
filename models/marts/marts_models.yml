@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fct_daily_market_performance
+    columns:
+      - name: stock_price_id
+        tests:
+          - unique
+          - not_null
+      - name: daily_return_pct
+        description: "Calculate the daily return of ticker"
+        tests:
+          - not_null:
+              config:
+                where: "trading_date > '2023-01-01'"
+
+  - name: dim_ticker_summary
+    columns:
+      - name: ticker_symbol
+        tests:
+          - unique
+          - not_null
+      - name: all_time_high_dkk
+        description: "Validerer at prisen aldrig er negativ"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
