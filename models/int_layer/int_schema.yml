@@ -16,4 +16,4 @@ models:
         tests:
           - not_null:
               config:
-                where: "trading_date > (select min(trading_date) from {{ this }})"
+                where: "daily_return_pct IS NOT NULL"

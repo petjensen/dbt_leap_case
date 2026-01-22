@@ -11,7 +11,7 @@ models:
         tests:
           - not_null:
               config:
-                where: "trading_date > (select min(trading_date) from {{ this }})"
+                where: "trading_date > '2023-01-01'"
 
   - name: dim_ticker_summary
     columns:
@@ -22,5 +22,5 @@ models:
       - name: all_time_high_dkk
         description: "Validerer at prisen aldrig er negativ"
         tests:
-          - dbt_expectations.expect_column_values_to_be_at_least:
-              value: 0
+          - dbt_utils.accepted_range:
+              min_value: 0

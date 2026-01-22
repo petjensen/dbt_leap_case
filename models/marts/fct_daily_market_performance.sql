@@ -15,6 +15,7 @@ final as (
         daily_return_pct,
         moving_avg_7_days
     from performance_data
+    where daily_return_pct is not null
     order by trading_date desc, ticker_symbol asc
 )
 
